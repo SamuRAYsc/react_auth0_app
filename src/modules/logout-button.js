@@ -9,7 +9,6 @@ const LogoutButton = () =>{
             onClick={() => logout()}
             id='qsLoginBtn'
             variant='danger'
-            classMate='btn-margin'
         >Log Out
         </Button>
     );
