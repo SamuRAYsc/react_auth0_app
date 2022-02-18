@@ -13,16 +13,12 @@ const MainNav = () => {
         <Nav.Link
         as={RouterNavLink}
         to="/"
-        exact
-        activeClassName="router-link-exact-active"
         >
             Home 
         </Nav.Link>
         <Nav.Link
         as={RouterNavLink}
         to="/profile"
-        exact
-        activeClassName="router-link-exact-active"
         >
             Profile
         </Nav.Link>

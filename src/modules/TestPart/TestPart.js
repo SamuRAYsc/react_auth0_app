@@ -1,4 +1,4 @@
-// import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import './TestPart.css';
 import { DataGrid } from '@mui/x-data-grid';
@@ -8,23 +8,29 @@ import BlockIcon from '@mui/icons-material/Block';
 import Stack from '@mui/material/Stack';
 
 function TestPart() {
-    // const [users, setUsers] = useState([])
+    const [users, setUsers] = useState([])
     const { getAccessTokenSilently } = useAuth0();
-
     const getToken = async () => {
-        return getAccessTokenSilently({
-        })
+        return getAccessTokenSilently()
     }
 
     const getUsers = async(token) =>{
-        fetch(`http://localhost:8080/userlist`, {
+        const res = await fetch(`http://localhost:8080/userlist`, {
             headers: {
                 Authorization: `Bearer ${token}`,
             },
-        }).then(res => res.json()).then(json => console.log(json))       
+        })
+        const json = await res.json()
+        return json      
     }
-    
-    getToken().then(token => getUsers(token));
+
+    ( async() => {
+        const token = await getToken();
+        const usersArray = await getUsers(token);
+        console.log(usersArray)
+        setUsers(usersArray)
+    })()
+    console.log(users)
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
@@ -65,6 +71,7 @@ function TestPart() {
             <div className="container">
             <Stack direction="row" spacing={2}>
                 <h1>Users</h1>
+                <p>{users}</p>
                 <Button variant="outlined" startIcon={<BlockIcon />} color="secondary">
                     Block
                 </Button>
