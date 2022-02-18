@@ -17,7 +17,6 @@ function TestPart() {
         })
     }
     const getUsers = async(token) =>{
-        //console.log(token)
         fetch(`http://localhost:8080/userlist`, {
             headers: {
                 Authorization: `Bearer ${token}`,
