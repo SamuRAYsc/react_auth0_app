@@ -14,16 +14,13 @@ function TestPart() {
 
     const getToken = async () => {
         return getAccessTokenSilently({
-            audience: `https://${domain}/api/v2/`,
-            scope: "read:users",
         })
     }
     const getUsers = async(token) =>{
-        
+        //console.log(token)
         fetch(`http://localhost:8080/userlist`, {
             headers: {
                 Authorization: `Bearer ${token}`,
-                scope: "read:users, read:user_idp_tokens",
             },
         }).then(res => res.json()).then(json => console.log(json))       
     }
