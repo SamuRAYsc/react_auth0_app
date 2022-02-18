@@ -10,12 +10,12 @@ import Stack from '@mui/material/Stack';
 function TestPart() {
     // const [users, setUsers] = useState([])
     const { getAccessTokenSilently } = useAuth0();
-    const domain = process.env.REACT_APP_AUTH0_DOMAIN
 
     const getToken = async () => {
         return getAccessTokenSilently({
         })
     }
+
     const getUsers = async(token) =>{
         fetch(`http://localhost:8080/userlist`, {
             headers: {
@@ -23,8 +23,8 @@ function TestPart() {
             },
         }).then(res => res.json()).then(json => console.log(json))       
     }
+    
     getToken().then(token => getUsers(token));
-
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
@@ -49,7 +49,6 @@ function TestPart() {
           type: 'boolean',
         },
       ];
-      
       const rows = [
         { id: 1, name: 'Snow', mail: 'Jon@wntr.bdr', registrationDay: '12.12.2022', lastLogin: '12.12.2022', isBlocked: false },
         { id: 2, name: 'Test', mail: 'test@test.ru', registrationDay: '12.12.2022', lastLogin: '12.12.2022', isBlocked: false },
