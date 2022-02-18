@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { useAuth0 } from "@auth0/auth0-react";
 import './TestPart.css';
 import { DataGrid } from '@mui/x-data-grid';
@@ -13,7 +13,6 @@ function TestPart() {
     const getToken = async () => {
         return getAccessTokenSilently()
     }
-
     const getUsers = async(token) =>{
         const res = await fetch(`http://localhost:8080/userlist`, {
             headers: {
@@ -27,10 +26,9 @@ function TestPart() {
     ( async() => {
         const token = await getToken();
         const usersArray = await getUsers(token);
-        console.log(usersArray)
-        setUsers(usersArray)
+        setUsers(JSON.parse(usersArray))
     })()
-    console.log(users)
+
 
     const columns = [
         { field: 'id', headerName: 'ID', width: 70 },
@@ -55,7 +53,7 @@ function TestPart() {
           type: 'boolean',
         },
       ];
-      const rows = [
+      const rows = [ 
         { id: 1, name: 'Snow', mail: 'Jon@wntr.bdr', registrationDay: '12.12.2022', lastLogin: '12.12.2022', isBlocked: false },
         { id: 2, name: 'Test', mail: 'test@test.ru', registrationDay: '12.12.2022', lastLogin: '12.12.2022', isBlocked: false },
         { id: 3, name: 'Kek', mail: 'kek@ch.hk', registrationDay: '12.12.2022', lastLogin: '12.12.2022', isBlocked: true },
@@ -71,7 +69,6 @@ function TestPart() {
             <div className="container">
             <Stack direction="row" spacing={2}>
                 <h1>Users</h1>
-                <p>{users}</p>
                 <Button variant="outlined" startIcon={<BlockIcon />} color="secondary">
                     Block
                 </Button>
